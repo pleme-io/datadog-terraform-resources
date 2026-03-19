@@ -1,0 +1,29 @@
+[resource]
+name = "datadog_dashboard_json"
+description = "Manages a Datadog dashboard using raw JSON definition"
+category = "dashboards"
+
+[crud]
+create_endpoint = "/api/v1/dashboard"
+create_schema = "DashboardJson"
+update_endpoint = "/api/v1/dashboard/{id}"
+update_schema = "DashboardJsonUpdate"
+read_endpoint = "/api/v1/dashboard/{id}"
+read_schema = "DashboardJsonGet"
+read_response_schema = "DashboardJson"
+delete_endpoint = "/api/v1/dashboard/{id}"
+delete_schema = "DashboardJsonDelete"
+
+[identity]
+id_field = "id"
+import_field = "id"
+force_new_fields = []
+
+[fields.dashboard]
+type = "String"
+required = true
+description = "JSON-encoded dashboard definition"
+
+[fields.url]
+computed = true
+description = "URL of the dashboard"

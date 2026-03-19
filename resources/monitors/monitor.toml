@@ -1,0 +1,106 @@
+[resource]
+name = "datadog_monitor"
+description = "Manages a Datadog monitor (metric, event, service check, etc.)"
+category = "monitors"
+
+[crud]
+create_endpoint = "/api/v1/monitor"
+create_schema = "Monitor"
+update_endpoint = "/api/v1/monitor/{id}"
+update_schema = "MonitorUpdateRequest"
+read_endpoint = "/api/v1/monitor/{id}"
+read_schema = "MonitorGet"
+read_response_schema = "Monitor"
+delete_endpoint = "/api/v1/monitor/{id}"
+delete_schema = "MonitorDelete"
+
+[identity]
+id_field = "id"
+import_field = "id"
+force_new_fields = []
+
+[fields.name]
+type = "String"
+required = true
+description = "Name of the monitor"
+
+[fields.type]
+type = "String"
+required = true
+description = "Type of monitor (metric alert, service check, event alert, etc.)"
+enum = ["metric alert", "service check", "event alert", "event-v2 alert", "query alert", "composite", "log alert", "trace-analytics alert", "slo alert", "rum alert", "ci-pipelines alert", "ci-tests alert", "audit alert", "error-tracking alert", "database-monitoring alert"]
+
+[fields.query]
+type = "String"
+required = true
+description = "Monitor query"
+
+[fields.message]
+type = "String"
+required = true
+description = "Notification message body"
+
+[fields.tags]
+type = "List"
+required = false
+description = "List of tags to associate with the monitor"
+
+[fields.priority]
+type = "Integer"
+required = false
+description = "Priority of the monitor (1-5)"
+
+[fields.enable_logs_sample]
+type = "Boolean"
+required = false
+description = "Include log samples in notifications"
+
+[fields.escalation_message]
+type = "String"
+required = false
+description = "Escalation message sent on re-notification"
+
+[fields.include_tags]
+type = "Boolean"
+required = false
+description = "Include triggering tags in notification title"
+
+[fields.notify_no_data]
+type = "Boolean"
+required = false
+description = "Notify when data stops reporting"
+
+[fields.no_data_timeframe]
+type = "Integer"
+required = false
+description = "Minutes before a monitor notifies after data stops reporting"
+
+[fields.renotify_interval]
+type = "Integer"
+required = false
+description = "Minutes after the last notification before re-notifying"
+
+[fields.timeout_h]
+type = "Integer"
+required = false
+description = "Hours before the monitor auto-resolves from a triggered state"
+
+[fields.evaluation_delay]
+type = "Integer"
+required = false
+description = "Seconds to delay evaluation for short-lived hosts"
+
+[fields.new_group_delay]
+type = "Integer"
+required = false
+description = "Seconds to wait before evaluating new groups"
+
+[fields.groupby_simple_monitor]
+type = "Boolean"
+required = false
+description = "Set to true for a simple-alert multi-monitor grouping"
+
+[fields.restricted_roles]
+type = "List"
+required = false
+description = "List of role UUIDs with edit access"

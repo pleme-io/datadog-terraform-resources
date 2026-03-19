@@ -1,0 +1,80 @@
+[resource]
+name = "datadog_integration_aws"
+description = "Manages a Datadog AWS integration"
+category = "integration"
+
+[crud]
+create_endpoint = "/api/v1/integration/aws"
+create_schema = "AWSAccountCreateRequest"
+update_endpoint = "/api/v1/integration/aws"
+update_schema = "AWSAccountUpdate"
+read_endpoint = "/api/v1/integration/aws"
+read_schema = "AWSAccountGet"
+read_response_schema = "AWSAccountListResponse"
+delete_endpoint = "/api/v1/integration/aws"
+delete_schema = "AWSAccountDeleteRequest"
+
+[identity]
+id_field = "external_id"
+import_field = "account_id"
+force_new_fields = ["account_id"]
+
+[fields.account_id]
+type = "String"
+required = true
+description = "AWS account ID (12-digit)"
+
+[fields.role_name]
+type = "String"
+required = false
+description = "Name of the IAM role for Datadog to assume"
+
+[fields.access_key_id]
+type = "String"
+required = false
+description = "AWS access key ID (alternative to role-based auth)"
+
+[fields.secret_access_key]
+type = "String"
+required = false
+sensitive = true
+description = "AWS secret access key"
+
+[fields.host_tags]
+type = "List"
+required = false
+description = "List of tags to apply to all hosts from this integration"
+
+[fields.filter_tags]
+type = "List"
+required = false
+description = "List of EC2 tags to filter hosts by (tag:value format)"
+
+[fields.account_specific_namespace_rules]
+type = "String"
+required = false
+description = "JSON-encoded map of AWS namespace to boolean for enabling/disabling collection"
+
+[fields.excluded_regions]
+type = "List"
+required = false
+description = "List of AWS regions to exclude from metrics collection"
+
+[fields.metrics_collection_enabled]
+type = "Boolean"
+required = false
+description = "Whether metrics collection is enabled"
+
+[fields.resource_collection_enabled]
+type = "Boolean"
+required = false
+description = "Whether resource collection is enabled"
+
+[fields.cspm_resource_collection_enabled]
+type = "Boolean"
+required = false
+description = "Whether Cloud Security Posture Management resource collection is enabled"
+
+[fields.external_id]
+computed = true
+description = "External ID generated for the AWS role trust policy"

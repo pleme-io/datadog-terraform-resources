@@ -1,0 +1,40 @@
+[resource]
+name = "datadog_logs_pipeline"
+description = "Manages a Datadog Logs pipeline for processing and parsing"
+category = "logs"
+
+[crud]
+create_endpoint = "/api/v1/logs/config/pipelines"
+create_schema = "LogsPipeline"
+update_endpoint = "/api/v1/logs/config/pipelines/{id}"
+update_schema = "LogsPipeline"
+read_endpoint = "/api/v1/logs/config/pipelines/{id}"
+read_schema = "LogsPipelineGet"
+read_response_schema = "LogsPipeline"
+delete_endpoint = "/api/v1/logs/config/pipelines/{id}"
+delete_schema = "LogsPipelineDelete"
+
+[identity]
+id_field = "id"
+import_field = "id"
+force_new_fields = []
+
+[fields.name]
+type = "String"
+required = true
+description = "Name of the pipeline"
+
+[fields.is_enabled]
+type = "Boolean"
+required = false
+description = "Whether the pipeline is enabled"
+
+[fields.filter]
+type = "String"
+required = true
+description = "JSON-encoded filter query for the pipeline"
+
+[fields.processors]
+type = "String"
+required = false
+description = "JSON-encoded list of processor definitions"

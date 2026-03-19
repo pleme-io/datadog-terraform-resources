@@ -1,0 +1,77 @@
+[resource]
+name = "datadog_service_level_objective"
+description = "Manages a Datadog Service Level Objective (SLO)"
+category = "slos"
+
+[crud]
+create_endpoint = "/api/v1/slo"
+create_schema = "ServiceLevelObjectiveRequest"
+update_endpoint = "/api/v1/slo/{id}"
+update_schema = "ServiceLevelObjectiveRequest"
+read_endpoint = "/api/v1/slo/{id}"
+read_schema = "ServiceLevelObjectiveGet"
+read_response_schema = "SLOResponse"
+delete_endpoint = "/api/v1/slo/{id}"
+delete_schema = "ServiceLevelObjectiveDelete"
+
+[identity]
+id_field = "id"
+import_field = "id"
+force_new_fields = []
+
+[fields.name]
+type = "String"
+required = true
+description = "Name of the SLO"
+
+[fields.type]
+type = "String"
+required = true
+description = "Type of SLO"
+enum = ["metric", "monitor", "time_slice"]
+
+[fields.description]
+type = "String"
+required = false
+description = "Description of the SLO"
+
+[fields.query]
+type = "String"
+required = false
+description = "JSON-encoded SLO query (for metric-based SLOs: numerator and denominator)"
+
+[fields.thresholds]
+type = "String"
+required = true
+description = "JSON-encoded list of SLO thresholds (target, timeframe, warning)"
+
+[fields.monitor_ids]
+type = "List"
+required = false
+description = "List of monitor IDs for monitor-based SLOs"
+
+[fields.groups]
+type = "List"
+required = false
+description = "List of monitor groups for scoping the SLO"
+
+[fields.tags]
+type = "List"
+required = false
+description = "Tags for the SLO"
+
+[fields.target_threshold]
+type = "Float"
+required = false
+description = "Target threshold percentage (e.g. 99.9)"
+
+[fields.timeframe]
+type = "String"
+required = false
+description = "Primary timeframe for the SLO"
+enum = ["7d", "30d", "90d", "custom"]
+
+[fields.warning_threshold]
+type = "Float"
+required = false
+description = "Warning threshold percentage"

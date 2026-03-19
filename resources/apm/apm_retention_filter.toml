@@ -1,0 +1,46 @@
+[resource]
+name = "datadog_apm_retention_filter"
+description = "Manages a Datadog APM retention filter for trace indexing"
+category = "apm"
+
+[crud]
+create_endpoint = "/api/v2/apm/config/retention-filters"
+create_schema = "RetentionFilterCreateRequest"
+update_endpoint = "/api/v2/apm/config/retention-filters/{filter_id}"
+update_schema = "RetentionFilterUpdateRequest"
+read_endpoint = "/api/v2/apm/config/retention-filters/{filter_id}"
+read_schema = "RetentionFilterGet"
+read_response_schema = "RetentionFilterResponse"
+delete_endpoint = "/api/v2/apm/config/retention-filters/{filter_id}"
+delete_schema = "RetentionFilterDelete"
+
+[identity]
+id_field = "id"
+import_field = "id"
+force_new_fields = []
+
+[fields.name]
+type = "String"
+required = true
+description = "Name of the retention filter"
+
+[fields.filter_type]
+type = "String"
+required = true
+description = "Type of the retention filter"
+enum = ["spans-sampling-processor", "spans-errors-sampling-processor", "spans-appsec-sampling-processor"]
+
+[fields.rate]
+type = "Float"
+required = true
+description = "Sample rate for the filter (0.0 to 1.0)"
+
+[fields.enabled]
+type = "Boolean"
+required = true
+description = "Whether the retention filter is enabled"
+
+[fields.filter]
+type = "String"
+required = false
+description = "JSON-encoded span filter query"

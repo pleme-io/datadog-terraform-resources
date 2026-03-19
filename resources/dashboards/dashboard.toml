@@ -1,0 +1,71 @@
+[resource]
+name = "datadog_dashboard"
+description = "Manages a Datadog dashboard"
+category = "dashboards"
+
+[crud]
+create_endpoint = "/api/v1/dashboard"
+create_schema = "Dashboard"
+update_endpoint = "/api/v1/dashboard/{id}"
+update_schema = "DashboardUpdate"
+read_endpoint = "/api/v1/dashboard/{id}"
+read_schema = "DashboardGet"
+read_response_schema = "Dashboard"
+delete_endpoint = "/api/v1/dashboard/{id}"
+delete_schema = "DashboardDelete"
+
+[identity]
+id_field = "id"
+import_field = "id"
+force_new_fields = []
+
+[fields.title]
+type = "String"
+required = true
+description = "Title of the dashboard"
+
+[fields.layout_type]
+type = "String"
+required = true
+description = "Layout type of the dashboard"
+enum = ["ordered", "free"]
+
+[fields.description]
+type = "String"
+required = false
+description = "Description of the dashboard"
+
+[fields.widgets]
+type = "String"
+required = false
+description = "JSON-encoded list of widget definitions"
+
+[fields.template_variables]
+type = "List"
+required = false
+description = "List of template variable definitions"
+
+[fields.is_read_only]
+type = "Boolean"
+required = false
+description = "Whether the dashboard is read-only"
+
+[fields.notify_list]
+type = "List"
+required = false
+description = "List of handles to notify when changes are made"
+
+[fields.reflow_type]
+type = "String"
+required = false
+description = "Reflow type for the dashboard"
+enum = ["auto", "fixed"]
+
+[fields.tags]
+type = "List"
+required = false
+description = "List of tags to associate with the dashboard"
+
+[fields.url]
+computed = true
+description = "URL of the dashboard"

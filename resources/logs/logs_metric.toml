@@ -1,0 +1,40 @@
+[resource]
+name = "datadog_logs_metric"
+description = "Manages a Datadog log-based metric"
+category = "logs"
+
+[crud]
+create_endpoint = "/api/v2/logs/config/metrics"
+create_schema = "LogsMetricCreateRequest"
+update_endpoint = "/api/v2/logs/config/metrics/{metric_id}"
+update_schema = "LogsMetricUpdateRequest"
+read_endpoint = "/api/v2/logs/config/metrics/{metric_id}"
+read_schema = "LogsMetricGet"
+read_response_schema = "LogsMetricResponse"
+delete_endpoint = "/api/v2/logs/config/metrics/{metric_id}"
+delete_schema = "LogsMetricDelete"
+
+[identity]
+id_field = "id"
+import_field = "id"
+force_new_fields = ["name"]
+
+[fields.name]
+type = "String"
+required = true
+description = "Name of the log-based metric"
+
+[fields.compute]
+type = "String"
+required = true
+description = "JSON-encoded compute definition (aggregation_type, path, include_percentiles)"
+
+[fields.filter]
+type = "String"
+required = false
+description = "JSON-encoded filter query for the metric"
+
+[fields.group_by]
+type = "String"
+required = false
+description = "JSON-encoded list of group-by field definitions (path, tag_name)"

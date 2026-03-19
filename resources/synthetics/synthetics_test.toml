@@ -1,0 +1,72 @@
+[resource]
+name = "datadog_synthetics_test"
+description = "Manages a Datadog Synthetics test (API, browser, multistep)"
+category = "synthetics"
+
+[crud]
+create_endpoint = "/api/v1/synthetics/tests"
+create_schema = "SyntheticsCreateTestBody"
+update_endpoint = "/api/v1/synthetics/tests/{public_id}"
+update_schema = "SyntheticsUpdateTestBody"
+read_endpoint = "/api/v1/synthetics/tests/{public_id}"
+read_schema = "SyntheticsGetTestBody"
+read_response_schema = "SyntheticsTestDetails"
+delete_endpoint = "/api/v1/synthetics/tests/delete"
+delete_schema = "SyntheticsDeleteTestsPayload"
+
+[identity]
+id_field = "public_id"
+import_field = "public_id"
+force_new_fields = []
+
+[fields.name]
+type = "String"
+required = true
+description = "Name of the Synthetics test"
+
+[fields.type]
+type = "String"
+required = true
+description = "Type of Synthetics test"
+enum = ["api", "browser", "mobile"]
+
+[fields.subtype]
+type = "String"
+required = false
+description = "Subtype of the API test"
+enum = ["http", "ssl", "tcp", "dns", "icmp", "udp", "websocket", "grpc", "multi"]
+
+[fields.status]
+type = "String"
+required = true
+description = "Status of the test"
+enum = ["live", "paused"]
+
+[fields.message]
+type = "String"
+required = false
+description = "Notification message for the test"
+
+[fields.tags]
+type = "List"
+required = false
+description = "Tags for the test"
+
+[fields.locations]
+type = "List"
+required = true
+description = "List of locations to run the test from"
+
+[fields.config]
+type = "String"
+required = false
+description = "JSON-encoded test configuration (request, assertions, variables)"
+
+[fields.options]
+type = "String"
+required = false
+description = "JSON-encoded test options (tick_every, min_location_failed, etc.)"
+
+[fields.monitor_id]
+computed = true
+description = "ID of the monitor associated with the test"
